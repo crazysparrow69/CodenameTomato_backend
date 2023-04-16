@@ -26,4 +26,20 @@ const createTask = async (req, res) => {
   }
 };
 
-module.exports = { createTask };
+const deleteTask = async (req, res) => {
+  const taskId = req.params.id;
+  if (!taskId) res.status(400).json({ message: "Id required" });
+
+  try {
+    Task.deleteOne( { _id: taskId }, function (err, doc) {
+      if (err) return res.status(500).json({ message: "Internal server error"});
+      if (!doc) return res.status(400).json({ message: "Couldn't find the task"});
+    });
+
+    res.json({ message: "Task deleted" });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = { createTask, deleteTask };
