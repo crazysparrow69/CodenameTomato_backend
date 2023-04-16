@@ -18,6 +18,9 @@ app.use(cookieParser());
 // Built-in middleware for json
 app.use(express.json());
 
+// Routes
+app.use('/task', require("./routes/taskRoute"));
+
 // Listen ports
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB');
