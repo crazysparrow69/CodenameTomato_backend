@@ -21,6 +21,7 @@ app.use(express.json());
 // Routes
 app.use('/task', require("./routes/taskRoute"));
 app.use('/register', require("./routes/registerRoute"));
+app.use('/auth', require("./routes/authRoute"));
 
 // Listen ports
 mongoose.connection.once('open', () => {
