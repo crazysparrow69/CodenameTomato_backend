@@ -1,10 +1,10 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const path = require('path');
-const mongoose = require('mongoose');
-const connectDB = require('./config/dbConn');
-const cookieParser = require('cookie-parser');
-require('dotenv').config();
+const path = require("path");
+const mongoose = require("mongoose");
+const connectDB = require("./config/dbConn");
+const cookieParser = require("cookie-parser");
+require("dotenv").config();
 
 // Global variables
 const PORT = 3500;
@@ -19,12 +19,12 @@ app.use(cookieParser());
 app.use(express.json());
 
 // Routes
-app.use('/task', require("./routes/taskRoute"));
-app.use('/register', require("./routes/registerRoute"));
-app.use('/auth', require("./routes/authRoute"));
+app.use("/task", require("./routes/taskRoute"));
+app.use("/register", require("./routes/registerRoute"));
+app.use("/auth", require("./routes/authRoute"));
 
 // Listen ports
-mongoose.connection.once('open', () => {
-  console.log('Connected to MongoDB');
+mongoose.connection.once("open", () => {
+  console.log("Connected to MongoDB");
   app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 });

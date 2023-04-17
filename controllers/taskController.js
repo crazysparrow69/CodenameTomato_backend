@@ -20,7 +20,12 @@ const createTask = async (req, res) => {
     res.sendStatus(400);
   }
 
-  if (title.length < 3 || description.length < 3 || deadline === "" || date === "") {
+  if (
+    title.length < 3 ||
+    description.length < 3 ||
+    deadline === "" ||
+    date === ""
+  ) {
     res.sendStatus(400);
   }
 
@@ -30,11 +35,11 @@ const createTask = async (req, res) => {
       title,
       description,
       deadline,
-      date
+      date,
     });
 
     console.log(result);
-    res.status(201).json({ "message": "New task created" });
+    res.status(201).json({ message: "New task created" });
   } catch (err) {
     console.log(err);
   }
@@ -45,9 +50,11 @@ const deleteTask = async (req, res) => {
   if (!taskId) res.status(400).json({ message: "Id required" });
 
   try {
-    Task.deleteOne( { _id: taskId }, function (err, doc) {
-      if (err) return res.status(500).json({ message: "Internal server error"});
-      if (!doc) return res.status(400).json({ message: "Couldn't find the task"});
+    Task.deleteOne({ _id: taskId }, function (err, doc) {
+      if (err)
+        return res.status(500).json({ message: "Internal server error" });
+      if (!doc)
+        return res.status(400).json({ message: "Couldn't find the task" });
     });
 
     res.json({ message: "Task deleted" });
