@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { createTask, deleteTask } = require('../controllers/taskController');
+const { getTasks, createTask, deleteTask } = require('../controllers/taskController');
+const verifyJWT = require("../middleware/verifyJWT");
 
-router.post('/', createTask)
-      .delete('/:id', deleteTask);
+router.get("/", verifyJWT, getTasks)
+      .post('/', verifyJWT, createTask)
+      .delete('/:id', verifyJWT, deleteTask);
 
 module.exports = router;
