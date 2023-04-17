@@ -1,5 +1,18 @@
 const Task = require("../model/Task");
 
+const getTasks = async (req, res) => {
+  try {
+    const foundTasks = await Task.find({ user: req.userId });
+
+    res.json({ foundTasks });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({
+      message: "Could not get tasks",
+    });
+  }
+};
+
 const createTask = async (req, res) => {
   const { title, description, deadline, date } = req.body;
 
@@ -13,6 +26,7 @@ const createTask = async (req, res) => {
 
   try {
     const result = await Task.create({
+      userId: req.userId,
       title,
       description,
       deadline,
@@ -42,4 +56,4 @@ const deleteTask = async (req, res) => {
   }
 };
 
-module.exports = { createTask, deleteTask };
+module.exports = { createTask, deleteTask, getTasks };
