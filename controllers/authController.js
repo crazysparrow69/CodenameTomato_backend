@@ -6,9 +6,13 @@ require("dotenv").config();
 const handleAuth = async (req, res) => {
   const { username, password, repass } = req.body;
 
-  if (!username || !password || !repass) return res.status(400).json({ message: "Username, password and repass required" });
+  if (!username || !password || !repass)
+    return res
+      .status(400)
+      .json({ message: "Username, password and repass required" });
 
-  if (password !== repass) return res.status(400).json({ message: "Password are not equal" });
+  if (password !== repass)
+    return res.status(400).json({ message: "Password are not equal" });
 
   try {
     const foundUser = await User.findOne({ username });
@@ -22,13 +26,9 @@ const handleAuth = async (req, res) => {
     if (!isValidPass)
       return res.status(404).json({ message: "Invalid email or password" });
 
-    const token = Jwt.sign(
-      {
-        _id: foundUser._id,
-      },
-      process.env.KEY,
-      { expiresIn: "30d" }
-    );
+    const token = Jwt.sign({ _id: foundUser._id }, process.env.KEY, {
+      expiresIn: "30d",
+    });
 
     const { password, ...userData } = foundUser._doc;
     res.json({ ...userData, token });
