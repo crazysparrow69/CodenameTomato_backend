@@ -14,17 +14,16 @@ const getTasks = async (req, res) => {
 };
 
 const createTask = async (req, res) => {
-  const { title, description, deadline, date } = req.body;
+  const { title, description, deadline } = req.body;
 
-  if (!title || !description || !deadline || !date) {
+  if (!title || !description || !deadline) {
     res.sendStatus(400);
   }
 
   if (
     title.length < 3 ||
     description.length < 3 ||
-    deadline === "" ||
-    date === ""
+    deadline === ""
   ) {
     res.sendStatus(400);
   }
@@ -35,7 +34,6 @@ const createTask = async (req, res) => {
       title,
       description,
       deadline,
-      date,
     });
 
     console.log(result);
