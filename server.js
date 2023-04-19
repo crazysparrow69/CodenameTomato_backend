@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const connectDB = require("./config/dbConn");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 require("dotenv").config();
 
 // Global variables
@@ -16,6 +17,9 @@ app.use(cookieParser());
 
 // Built-in middleware for json
 app.use(express.json());
+
+// Middleware for cors
+app.use(cors());
 
 // Routes
 app.use("/task", require("./routes/taskRoute"));
