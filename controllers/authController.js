@@ -40,4 +40,20 @@ const handleAuth = async (req, res) => {
   }
 };
 
-module.exports = { handleAuth };
+const getMe = async (req, res) => {
+  try {
+    const foundUser = await User.findById(req.userId);
+
+    if (!foundUser)
+      return res.status(404).json({ message: "Couldn't find user" });
+
+    const { password, ...userData } = foundUser._doc;
+
+    res.json(userData);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error " });
+  }
+};
+
+module.exports = { handleAuth, getMe };
