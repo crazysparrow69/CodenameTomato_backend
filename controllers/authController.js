@@ -4,15 +4,12 @@ const Jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const handleAuth = async (req, res) => {
-  const { username, password, repass } = req.body;
+  const { username, password } = req.body;
 
-  if (!username || !password || !repass)
+  if (!username || !password)
     return res
       .status(400)
       .json({ message: "Username, password and repass required" });
-
-  if (password !== repass)
-    return res.status(400).json({ message: "Password are not equal" });
 
   try {
     const foundUser = await User.findOne({ username });
