@@ -36,7 +36,6 @@ const createTask = async (req, res) => {
       deadline,
     });
 
-    console.log(result);
     res.status(201).json({ message: "New task created" });
   } catch (err) {
     console.log(err);
