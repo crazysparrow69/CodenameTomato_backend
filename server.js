@@ -25,6 +25,7 @@ app.use(cors());
 app.use("/task", require("./routes/taskRoute"));
 app.use("/register", require("./routes/registerRoute"));
 app.use("/auth", require("./routes/authRoute"));
+app.use("/image", require("./routes/imageRoute"));
 
 // Listen ports
 mongoose.connection.once("open", () => {
